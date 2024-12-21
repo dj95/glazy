@@ -1,13 +1,24 @@
-use clap::Parser;
-use glazy::config::{config_file_path, read_config};
+use clap::{Parser, Subcommand};
+use glazy::{commands, config::read_config, gitlab};
 use miette::Result;
 use tracing_subscriber::EnvFilter;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    #[arg(short, long)]
+    #[arg(short, long, help = "Path to the configuration file")]
     config: Option<String>,
+
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand, Debug)]
+enum Commands {
+    /// Fuzzy find a repository and open it locally. It will be cloned if it doesn't exist locally.
+    Open { group: Option<String> },
+    /// Update all locally checked out repositories
+    Update,
 }
 
 fn main() -> Result<()> {
@@ -18,20 +29,15 @@ fn main() -> Result<()> {
 
     let args = Args::parse();
 
-    let config_file_name = config_file_path(args.config)?;
-    let config = read_config(&config_file_name)?;
+    let config = read_config(args.config)?;
+    let gitlab_client = gitlab::Client::new(config.gitlab.host, config.gitlab.token)?;
 
-    tracing::debug!(target: "config file", config_file = config_file_name);
-
-    // This event will *only* be recorded by the metrics layer.
-    tracing::info!(target: "metrics::cool_stuff_count", value = 42);
-
-    // This event will only be seen by the debug log file layer:
-    tracing::debug!("this is a message, and part of a system of messages");
-
-    // This event will be seen by both the stdout log layer *and*
-    // the debug log file layer, but not by the metrics layer.
-    tracing::warn!("the message is a warning about danger!");
+    match args.command {
+        Commands::Open { group } => {
+            commands::open(&gitlab_client, group, &config.local.project_dir)?
+        }
+        Commands::Update => commands::update()?,
+    }
 
     Ok(())
 }

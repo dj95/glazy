@@ -8,8 +8,8 @@ build:
   cargo build
 
 # Build zjstatus with tracing and start a zellij session with the dev layout.
-run target="glazy":
-  RUST_LOG=debug cargo run -p {{target}} -- --config ./config.kdl
+run args="":
+  RUST_LOG=info cargo run -p glazy -- --config ./config.kdl {{args}}
 
 # Watch and run tests with nextest.
 test:

@@ -31,12 +31,18 @@ macro_rules! kdl_error {
 #[derive(Debug)]
 pub struct Config {
     pub gitlab: GitLabConfig,
+    pub local: LocalConfig,
 }
 
 #[derive(Debug)]
 pub struct GitLabConfig {
-    pub url: String,
+    pub host: String,
     pub token: String,
+}
+
+#[derive(Debug)]
+pub struct LocalConfig {
+    pub project_dir: String,
 }
 
 #[tracing::instrument]
@@ -57,8 +63,11 @@ pub fn config_file_path(file_name_candidate: Option<String>) -> Result<String> {
     }
 }
 
-pub fn read_config(file_name: &str) -> Result<Config> {
-    let contents = fs::read_to_string(file_name).map_err(|err| {
+pub fn read_config(file_name: Option<String>) -> Result<Config> {
+    let file_name = config_file_path(file_name)?;
+    tracing::debug!(target: "detected config file", config_file = file_name);
+
+    let contents = fs::read_to_string(&file_name).map_err(|err| {
         miette!(
             code = "config::read_config",
             help = "Validate the config path and check that the file exists.",
@@ -69,7 +78,32 @@ pub fn read_config(file_name: &str) -> Result<Config> {
     let nodes = contents.parse::<KdlDocument>().into_diagnostic()?;
 
     Ok(Config {
-        gitlab: parse_gitlab_config(file_name, nodes.get("gitlab"))?,
+        gitlab: parse_gitlab_config(&file_name, nodes.get("gitlab"))?,
+        local: parse_local_config(&file_name, nodes.get("local"))?,
+    })
+}
+
+#[tracing::instrument]
+fn parse_local_config(file_name: &str, node: Option<&KdlNode>) -> Result<LocalConfig> {
+    let node = match node {
+        Some(node) => node,
+        None => {
+            return Err(miette!(
+                help = "Validate the config and consult the documentation",
+                "Configuration does not contain 'local' node",
+            ))?
+        }
+    };
+
+    let source_code = node.to_string();
+
+    let node = match node.children() {
+        Some(node) => node,
+        None => kdl_error!(node, source_code, "local node is empty")?,
+    };
+
+    Ok(LocalConfig {
+        project_dir: get_value_or_error(node, source_code.to_owned(), "project_dir")?,
     })
 }
 
@@ -93,7 +127,7 @@ fn parse_gitlab_config(file_name: &str, node: Option<&KdlNode>) -> Result<GitLab
     };
 
     Ok(GitLabConfig {
-        url: get_value_or_error(node, source_code.to_owned(), "url")?,
+        host: get_value_or_error(node, source_code.to_owned(), "host")?,
         token: get_value_or_error(node, source_code, "token")?,
     })
 }
@@ -114,7 +148,7 @@ mod test {
     use rstest::*;
 
     const EXAMPLE_CONFIG: &str = "gitlab {
-    url \"url_val\"
+    host \"host_val\"
     token \"token_val\"
 }";
 
@@ -122,7 +156,7 @@ mod test {
     #[case(EXAMPLE_CONFIG, false)]
     #[case(
         "gitlab {
-    url \"url_val\"
+    host \"host_val\"
 }",
         true
     )]
