@@ -1,0 +1,18 @@
+[package]
+name = "glazy"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "glazy"
+
+[dependencies]
+clap = { version = "4.5.23", features = ["derive"] }
+kdl = "4.7.1"
+miette = { version = "7.4.0", features = ["fancy"] }
+rstest = "0.23.0"
+test-log = { version = "0.2.16", features = ["trace"] }
+thiserror = "2.0.8"
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+xdg = "2.5.2"

@@ -1,0 +1,8 @@
+// Configuration related to the GitLab instance
+gitlab {
+    // URL to the GitLab instance
+    url "url_val"
+
+    // Personal Access Token with at least api & write_repository permissions
+    token "token_val"
+}
