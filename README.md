@@ -63,7 +63,7 @@ glazy open mygroup
 ## 🔮 Future Features
 
 - [ ] refresh/pull all local repository
-- [ ] initial bootstrap of multiple repositories via a layout file
+- [x] initial bootstrap of multiple repositories via a layout file
 
 ## 🤝 Contributing
 

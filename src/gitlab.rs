@@ -69,6 +69,15 @@ impl Client {
         Ok(Self { client })
     }
 
+    pub fn project(&self, path: &str) -> Result<Project> {
+        let endpoint = projects::Project::builder()
+            .project(path)
+            .build()
+            .into_diagnostic()?;
+
+        endpoint.query(&self.client).into_diagnostic()
+    }
+
     pub fn projects(&self) -> Result<Vec<Project>> {
         let pageable_endpoint = projects::Projects::builder().build().into_diagnostic()?;
 

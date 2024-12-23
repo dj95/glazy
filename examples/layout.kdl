@@ -1,0 +1,4 @@
+repositories {
+	"mygroup/sub1/project2"
+	"mygroup/project1"
+}
