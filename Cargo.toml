@@ -10,7 +10,7 @@ name = "glazy"
 ansi_term = "0.12.1"
 clap = { version = "4.5.23", features = ["derive"] }
 gitlab = "0.1706.0"
-kdl = "4.7.1"
+kdl = "6.1.0"
 miette = { version = "7.4.0", features = ["fancy"] }
 rstest = "0.23.0"
 serde = { version = "1.0.216", features = ["derive"] }
