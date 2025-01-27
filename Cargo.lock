@@ -1850,9 +1850,9 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
 name = "skim"
-version = "0.15.7"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cca6d7038f40f52c06332f8fe3f0dafd26f3cd196b910d144d290676ac3a3916"
+checksum = "dab34d5a18b61e32da6827d04d078b5ad7352391f2c940f264353de36d3b800d"
 dependencies = [
  "beef",
  "bitflags 1.3.2",
@@ -1864,7 +1864,6 @@ dependencies = [
  "env_logger",
  "fuzzy-matcher",
  "indexmap",
- "lazy_static",
  "log",
  "nix 0.29.0",
  "rand",
@@ -2365,23 +2364,12 @@ checksum = "ba73ea9cf16a25df0c8caa16c51acb937d5712a8429db78a3ee29d5dcacd3a65"
 
 [[package]]
 name = "vte"
-version = "0.13.1"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a0b683b20ef64071ff03745b14391751f6beab06a54347885459b77a3f2caa5"
+checksum = "231fdcd7ef3037e8330d8e17e61011a2c244126acc0a982f4040ac3f9f0bc077"
 dependencies = [
  "arrayvec",
- "utf8parse",
- "vte_generate_state_changes",
-]
-
-[[package]]
-name = "vte_generate_state_changes"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2e369bee1b05d510a7b4ed645f5faa90619e05437111783ea5848f28d97d3c2e"
-dependencies = [
- "proc-macro2",
- "quote",
+ "memchr",
 ]
 
 [[package]]
