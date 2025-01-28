@@ -14,7 +14,7 @@ kdl = "6.3.2"
 miette = { version = "7.4.0", features = ["fancy"] }
 rstest = "0.24.0"
 serde = { version = "1.0.217", features = ["derive"] }
-skim = "0.15.7"
+skim = "0.16.0"
 test-log = { version = "0.2.17", features = ["trace"] }
 thiserror = "2.0.11"
 tracing = "0.1.41"
