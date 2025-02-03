@@ -11,7 +11,7 @@ ansi_term = "0.12.1"
 clap = { version = "4.5.27", features = ["derive"] }
 gitlab = "0.1708.0"
 kdl = "6.3.3"
-miette = { version = "7.4.0", features = ["fancy"] }
+miette = { version = "7.5.0", features = ["fancy"] }
 rstest = "0.24.0"
 serde = { version = "1.0.217", features = ["derive"] }
 skim = "0.16.0"
