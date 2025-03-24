@@ -660,9 +660,9 @@ checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
 
 [[package]]
 name = "gitlab"
-version = "0.1709.2"
+version = "0.1709.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1b57b2e7bde94f5953d83c719f8b6a02cb8ab92aac818e2c7be34ab39de166a0"
+checksum = "59fa5779aedae5265b0b222b0b27cf85ea6b4227453d8043efe9927ffd0325d3"
 dependencies = [
  "async-trait",
  "base64",
