@@ -9,7 +9,7 @@ name = "glazy"
 [dependencies]
 ansi_term = "0.12.1"
 clap = { version = "4.5.37", features = ["derive"] }
-gitlab = "0.1710.0"
+gitlab = "0.1800.0"
 kdl = "6.3.4"
 miette = { version = "7.5.0", features = ["fancy"] }
 rstest = "0.25.0"
