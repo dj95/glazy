@@ -1,7 +1,7 @@
 use std::fs;
 
 use kdl::{KdlDocument, KdlNode};
-use miette::{miette, Context, IntoDiagnostic, LabeledSpan, Result};
+use miette::{bail, miette, IntoDiagnostic, LabeledSpan, Result};
 use xdg::BaseDirectories;
 
 macro_rules! kdl_first_entry_as_string {
@@ -50,12 +50,12 @@ pub fn config_file_path(file_name_candidate: Option<String>) -> Result<String> {
     match file_name_candidate {
         Some(file_name) => Ok(file_name),
         None => {
-            let dirs = BaseDirectories::with_prefix("glazy")
-                .into_diagnostic()
-                .context("config file path get xdg base dirs")?;
+            let config_file = match BaseDirectories::with_prefix("glazy").get_config_file("config.kdl") {
+                Some(config_file) => config_file,
+                None => bail!("cannot get config file path"),
+            };
 
-            Ok(dirs
-                .get_config_file("config.kdl")
+            Ok(config_file
                 .into_os_string()
                 .into_string()
                 .unwrap())
