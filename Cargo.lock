@@ -1919,9 +1919,9 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
 name = "skim"
-version = "0.20.1"
+version = "0.20.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db876e687028ac872eb0de42e73af0da1547c76953af15945b909b1e454c855c"
+checksum = "19a285c48e203135e5d58eb0fc632e3303c127f2056c8e50c8a11c504b7132b4"
 dependencies = [
  "beef",
  "bitflags 1.3.2",
@@ -1958,9 +1958,9 @@ checksum = "d8312ae7ca1a5883e68042b9c6bce05bfc12f06b814ecfda06c34abfb6c88175"
 
 [[package]]
 name = "skim-tuikit"
-version = "0.6.4"
+version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "74f55182f484b7574c940ff914a7559d7c60c1b3748e0d83ff0cf485a8e69ce6"
+checksum = "18fa16dc8ef0aa72471eb80bf1d43b62e841abf1cd2429216c44cdfd886545f0"
 dependencies = [
  "bitflags 1.3.2",
  "lazy_static",
