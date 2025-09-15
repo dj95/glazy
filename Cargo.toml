@@ -13,7 +13,7 @@ gitlab = "0.1803.0"
 kdl = "6.3.4"
 miette = { version = "7.6.0", features = ["fancy"] }
 rstest = "0.26.1"
-serde = { version = "1.0.219", features = ["derive"] }
+serde = { version = "1.0.224", features = ["derive"] }
 skim = "0.20.2"
 test-log = { version = "0.2.18", features = ["trace"] }
 thiserror = "2.0.16"
